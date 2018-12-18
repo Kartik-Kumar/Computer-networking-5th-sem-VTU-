@@ -1,0 +1,51 @@
+import java.util.*;
+public class Leaky {
+    static int bs=10;
+    public static void main(String[] args) {
+        int n;
+        Scanner sn=new Scanner(System.in);
+        System.out.println("Enter n");
+        n=sn.nextInt();
+        System.out.println("Enter the input packets");
+        int ps[]=new int[n];
+        for(int i=0;i<n;i++)
+        {   
+            ps[i]=sn.nextInt();
+        }
+       
+        int rp=0;
+        int o=5;
+        int dp,out;
+       
+        System.out.println("Time\tpkt_size\to/p\tpkt_rem\tpackets_dropped");
+        for(int i=0;i<n;i++)
+        {
+            rp=rp+ps[i];
+            if(rp<o)
+            {
+                out=rp;
+                rp=0;
+                dp=0;
+            }
+            else
+            {
+                rp=rp-o;
+                out=o;
+                if(rp<bs)
+                {
+                    dp=0;
+                }
+                else
+                {
+                    dp=rp-bs;
+                    rp=bs;
+                }
+            }
+            System.out.println(i+"\t"+ps[i]+"\t\t"+out+"\t"+rp+"\t"+dp);
+        }
+           
+       
+    }
+
+   
+}
