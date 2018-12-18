@@ -1,0 +1,42 @@
+import java.io.*;
+import java.net.*;
+
+public class TCPclient {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try{
+			Socket s=new Socket("localhost",4555);
+			BufferedReader bf=new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Enter the filename");
+			String fileName=bf.readLine();
+			DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+			dout.writeUTF(fileName);
+			DataInputStream din=new DataInputStream(s.getInputStream());
+			String content;
+			do{
+				content =din.readUTF();
+				System.out.println(content);
+				dout.flush();
+				if(content==null){
+					break;
+				}
+			}while(true);
+			dout.close();
+			s.close();
+			bf.close();
+			
+			
+		}
+
+		catch(Exception e){
+			System.out.println(e);
+			
+		}
+
+	}
+
+}

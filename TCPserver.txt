@@ -1,0 +1,34 @@
+import java.io.*;
+import java.net.*;
+
+public class TCPserver {
+
+	
+	public static void main(String[] args) {
+		try{
+		ServerSocket ss=new ServerSocket(4555);
+		Socket s=ss.accept();
+		System.out.println("Connection Succesfull!!");
+		DataInputStream din =new DataInputStream(s.getInputStream());
+		String filename=din.readUTF();
+		BufferedReader bf=new BufferedReader(new FileReader(filename));
+		String content;
+		DataOutputStream dout=new 	DataOutputStream(s.getOutputStream());
+		while((content=bf.readLine())!=null&&content.length()!=0){
+			dout.writeUTF(content);
+			
+		}
+		bf.close();
+		ss.close();
+		
+		
+	}
+
+		catch(Exception e){
+			System.out.println(e);
+			
+		}
+
+
+	}	
+}

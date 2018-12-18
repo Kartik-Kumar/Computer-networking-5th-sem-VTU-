@@ -1,0 +1,29 @@
+
+import java.net.*;
+
+public class UDPclient {
+
+	public static void main(String[] args) {
+		
+		try{
+			DatagramSocket ds=new DatagramSocket(1224);
+			byte[] buf=new byte[100];
+			String msg;
+			DatagramPacket dp;
+			while(true){
+				dp=new DatagramPacket(buf,buf.length);
+				ds.receive(dp);
+				msg=new String(dp.getData(),dp.getOffset(),dp.getLength());
+				System.out.println(msg);
+
+			} 
+			
+		}
+		
+		catch(Exception e){
+			System.out.println(e);
+			
+		}
+	}
+
+}

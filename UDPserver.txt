@@ -1,0 +1,36 @@
+import java.util.*;
+import java.net.*;
+
+public class UDPserver {
+
+	public static void main(String[] args) {
+		try{
+			DatagramSocket ds=new DatagramSocket();
+			InetAddress ip=InetAddress.getByName("Localhost");
+			int port =1224;
+			Scanner sc=new Scanner(System.in);
+			String msg=sc.nextLine();
+			while(true){
+				DatagramPacket dp=new DatagramPacket(msg.getBytes(),msg.length(),ip,port);
+				if(!msg.equals("quit")){
+					ds.send(dp);
+				}	
+				else
+					{
+						break;
+						
+					}
+					msg=sc.nextLine();
+					
+				}
+				ds.close();
+			
+			}
+		catch(Exception e){
+			System.out.println(e);
+			
+		}
+		
+	}
+
+}
